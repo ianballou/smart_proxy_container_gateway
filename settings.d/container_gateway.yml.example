@@ -1,3 +1,6 @@
 ---
 :enabled: true
 :hello_greeting: 'O hai!'
+:pulp_endpoint: 'https://your_pulp_3_server_here.com'
+:pulp_client_ssl_cert: 'changeme'
+:pulp_client_ssl_key: 'changeme'

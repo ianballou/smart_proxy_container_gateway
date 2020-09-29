@@ -11,5 +11,11 @@ module Proxy::ContainerGateway
     get '/hello' do
       Proxy::ContainerGateway.say_hello
     end
+
+    # endpoints that podman will hit
+
+    get '/v2/:repository/manifests/:tag' do
+      Proxy::ContainerGateway.get_manifests(params[:repository], params[:tag])
+    end
   end
 end
