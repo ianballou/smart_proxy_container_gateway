@@ -3,14 +3,14 @@ require 'webmock/test_unit'
 require 'mocha/test_unit'
 require 'rack/test'
 
-require 'smart_proxy_example/example'
-require 'smart_proxy_example/example_api'
+require 'smart_proxy_container_gateway/container_gateway'
+require 'smart_proxy_container_gateway/container_gateway_api'
 
-class ExampleApiTest < Test::Unit::TestCase
+class ContainerGatewayApiTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   def app
-    Proxy::Example::Api.new
+    Proxy::ContainerGateway::Api.new
   end
 
   def test_returns_hello_greeting
