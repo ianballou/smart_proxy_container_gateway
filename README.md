@@ -1,3 +1,3 @@
-# Smart Proxy - Example
+# Smart Proxy - Container Gateway
 
-This plug-in adds support for Example to Foreman's Smart Proxy.
+A Foreman smart proxy plugin for Katello.  Implements container registry functions for Pulp 3-enabled smart proxy mirrors.
