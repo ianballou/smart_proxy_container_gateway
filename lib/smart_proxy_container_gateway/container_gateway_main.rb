@@ -16,8 +16,21 @@ module Proxy::ContainerGateway
     def get_manifests(repository, tag)
       uri = URI.parse(Proxy::ContainerGateway::Plugin.settings.pulp_endpoint + '/pulpcore_registry/v2/' +
                       repository + '/manifests/' + tag)
-      uri.to_s
-      # TODO: Setup cert, key, headers, etc
+
+      cert = OpenSSL::X509::Certificate.new(File.open(Proxy::ContainerGateway::Plugin.settings.pulp_client_ssl_cert, 'r').read)
+      key =  OpenSSL::PKey::RSA.new(File.open(Proxy::ContainerGateway::Plugin.settings.pulp_client_ssl_key, 'r').read)
+
+      http_client = Net::HTTP.new(uri.host, uri.port)
+      http_client.cert = cert
+      http_client.key = key
+      http_client.use_ssl = true
+
+      response = http_client.start do |http|
+        request = Net::HTTP::Get.new uri
+        http.request request
+      end
+
+      response['location']
     end
   end
 end

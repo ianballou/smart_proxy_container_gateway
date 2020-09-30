@@ -15,7 +15,8 @@ module Proxy::ContainerGateway
     # endpoints that podman will hit
 
     get '/v2/:repository/manifests/:tag' do
-      Proxy::ContainerGateway.get_manifests(params[:repository], params[:tag])
+      redirection_location = Proxy::ContainerGateway.get_manifests(params[:repository], params[:tag])
+      redirect to(redirection_location)
     end
   end
 end
