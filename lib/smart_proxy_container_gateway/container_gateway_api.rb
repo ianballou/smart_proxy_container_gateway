@@ -8,15 +8,22 @@ module Proxy::ContainerGateway
     include ::Proxy::Log
     helpers ::Proxy::Helpers
 
-    get '/hello' do
-      Proxy::ContainerGateway.say_hello
+    get '/v2/?' do
+      Proxy::ContainerGateway.ping
     end
 
-    # endpoints that podman will hit
-
-    get '/v2/:repository/manifests/:tag' do
+    get '/v2/:repository/manifests/:tag/?' do
       redirection_location = Proxy::ContainerGateway.get_manifests(params[:repository], params[:tag])
       redirect to(redirection_location)
+    end
+
+    get '/v2/:repository/blobs/:digest/?' do
+      redirection_location = Proxy::ContainerGateway.get_blobs(params[:repository], params[:digest])
+      redirect to(redirection_location)
+    end
+
+    get '/v2/_catalog/?' do
+      Proxy::ContainerGateway.get_catalog
     end
   end
 end
